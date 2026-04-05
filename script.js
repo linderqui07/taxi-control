@@ -1,31 +1,47 @@
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background: #020617;
-    border: 1px solid #334155;
-    border-radius: 6px;
-    color: white;
+function mostrar(pantalla) {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById(pantalla).classList.remove("oculto");
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: #2563eb;
-    border: none;
-    border-radius: 6px;
-    color: white;
+function volver() {
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("ingreso").classList.add("oculto");
+    document.getElementById("egreso").classList.add("oculto");
 }
 
-button:hover {
-    opacity: 0.9;
+function toggleExtra() {
+    const tipo = document.getElementById("tipoIngreso").value;
+    const persona = document.getElementById("persona");
+
+    if (tipo === "extra") {
+        persona.classList.remove("oculto");
+    } else {
+        persona.classList.add("oculto");
+    }
 }
 
-.pantalla {
-    margin-top: 20px;
+// Por ahora solo mostramos en consola
+function guardarIngreso() {
+    const data = {
+        fecha: document.getElementById("fechaIngreso").value,
+        turno: document.getElementById("turno").value,
+        monto: document.getElementById("montoIngreso").value,
+        tipo: document.getElementById("tipoIngreso").value,
+        persona: document.getElementById("persona").value
+    };
+
+    console.log("Ingreso:", data);
+    alert("Ingreso guardado (temporal)");
 }
 
-.oculto {
-    display: none;
+function guardarEgreso() {
+    const data = {
+        fecha: document.getElementById("fechaEgreso").value,
+        descripcion: document.getElementById("descEgreso").value,
+        monto: document.getElementById("montoEgreso").value,
+        categoria: document.getElementById("categoria").value
+    };
+
+    console.log("Egreso:", data);
+    alert("Egreso guardado (temporal)");
 }
