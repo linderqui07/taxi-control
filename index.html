@@ -1,1 +1,70 @@
-hola mundo
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Taxi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🚕 Control Taxi</h1>
+
+    <!-- MENU -->
+    <div id="menu">
+        <button onclick="mostrar('ingreso')">Registrar Ingreso</button>
+        <button onclick="mostrar('egreso')">Registrar Egreso</button>
+    </div>
+
+    <!-- FORM INGRESO -->
+    <div id="ingreso" class="pantalla oculto">
+        <h2>Ingreso</h2>
+
+        <input type="date" id="fechaIngreso">
+
+        <select id="turno">
+            <option value="dia">Día</option>
+            <option value="noche">Noche</option>
+        </select>
+
+        <input type="number" id="montoIngreso" placeholder="Monto">
+
+        <select id="tipoIngreso" onchange="toggleExtra()">
+            <option value="taxi">Taxi</option>
+            <option value="extra">Extra</option>
+        </select>
+
+        <select id="persona" class="oculto">
+            <option>Gatito</option>
+            <option>Luis Miguel</option>
+            <option>Linder</option>
+        </select>
+
+        <button onclick="guardarIngreso()">Guardar</button>
+        <button onclick="volver()">Volver</button>
+    </div>
+
+    <!-- FORM EGRESO -->
+    <div id="egreso" class="pantalla oculto">
+        <h2>Egreso</h2>
+
+        <input type="date" id="fechaEgreso">
+        <input type="text" id="descEgreso" placeholder="Descripción">
+        <input type="number" id="montoEgreso" placeholder="Monto">
+
+        <select id="categoria">
+            <option>Combustible</option>
+            <option>Comida</option>
+            <option>Mantenimiento</option>
+            <option>Otros</option>
+        </select>
+
+        <button onclick="guardarEgreso()">Guardar</button>
+        <button onclick="volver()">Volver</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
