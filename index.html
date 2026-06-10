@@ -4,16 +4,47 @@
     <meta charset="UTF-8">
     <title>Control Taxi</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 <div class="container">
     <h1>🚕 Control Taxi</h1>
 
+    <div id="dashboard">
+
+    <div class="card saldo-card">
+        <h3>Saldo del Mes</h3>
+        <p id="saldoMes">$0.00</p>
+    </div>
+
+    <div class="card ingreso-card">
+        <h3>Ingresos del Mes</h3>
+        <p id="ingresosMes">$0.00</p>
+    </div>
+
+    <div class="card egreso-card">
+        <h3>Egresos del Mes</h3>
+        <p id="egresosMes">$0.00</p>
+    </div>
+
+    </div>
+
     <!-- MENU -->
     <div id="menu">
-        <button onclick="mostrar('ingreso')">Registrar Ingreso</button>
-        <button onclick="mostrar('egreso')">Registrar Egreso</button>
+
+    <button onclick="mostrar('ingreso')">
+        ➕ Registrar Ingreso
+    </button>
+
+    <button onclick="mostrar('egreso')">
+        ➖ Registrar Egreso
+    </button>
+
+    <button>
+        📋 Ver Historial
+    </button>
+
     </div>
 
     <!-- FORM INGRESO -->
