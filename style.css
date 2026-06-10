@@ -6,11 +6,12 @@ body {
 }
 
 .container {
+    width: 95%;
     max-width: 500px;
-    margin: 30px auto;
+    margin: 10px auto;
     background: #111827;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 input, select {
@@ -43,4 +44,33 @@ button:hover {
 
 .oculto {
     display: none;
+}
+.card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 15px;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+.card p {
+    margin: 10px 0 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+.saldo-card p {
+    color: #22c55e;
+}
+
+.ingreso-card p {
+    color: #60a5fa;
+}
+
+.egreso-card p {
+    color: #ef4444;
 }
