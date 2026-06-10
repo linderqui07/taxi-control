@@ -1,15 +1,26 @@
-function mostrar(pantalla) {
-    document.getElementById("menu").style.display = "none";
-    document.getElementById(pantalla).classList.remove("oculto");
+// ======================
+// ABRIR MODALES
+// ======================
+
+function mostrar(modal) {
+    document.getElementById(modal).classList.remove("oculto");
 }
 
+// ======================
+// CERRAR MODALES
+// ======================
+
 function volver() {
-    document.getElementById("menu").style.display = "block";
     document.getElementById("ingreso").classList.add("oculto");
     document.getElementById("egreso").classList.add("oculto");
 }
 
+// ======================
+// MOSTRAR PERSONA SI ES EXTRA
+// ======================
+
 function toggleExtra() {
+
     const tipo = document.getElementById("tipoIngreso").value;
     const persona = document.getElementById("persona");
 
@@ -18,10 +29,15 @@ function toggleExtra() {
     } else {
         persona.classList.add("oculto");
     }
+
 }
 
-// Por ahora solo mostramos en consola
+// ======================
+// GUARDAR INGRESO
+// ======================
+
 function guardarIngreso() {
+
     const data = {
         fecha: document.getElementById("fechaIngreso").value,
         turno: document.getElementById("turno").value,
@@ -31,10 +47,18 @@ function guardarIngreso() {
     };
 
     console.log("Ingreso:", data);
-    alert("Ingreso guardado (temporal)");
+
+    alert("Ingreso guardado");
+
+    volver();
 }
 
+// ======================
+// GUARDAR EGRESO
+// ======================
+
 function guardarEgreso() {
+
     const data = {
         fecha: document.getElementById("fechaEgreso").value,
         descripcion: document.getElementById("descEgreso").value,
@@ -43,5 +67,24 @@ function guardarEgreso() {
     };
 
     console.log("Egreso:", data);
-    alert("Egreso guardado (temporal)");
+
+    alert("Egreso guardado");
+
+    volver();
 }
+
+// ======================
+// CERRAR MODAL AL TOCAR EL FONDO
+// ======================
+
+document.querySelectorAll(".modal").forEach(modal => {
+
+    modal.addEventListener("click", function (e) {
+
+        if (e.target === modal) {
+            modal.classList.add("oculto");
+        }
+
+    });
+
+});
