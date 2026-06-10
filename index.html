@@ -14,7 +14,7 @@
     <div id="dashboard">
 
     <div class="card saldo-card">
-        <h3>Saldo del Mes</h3>
+        <h3>Saldo del Mes a día de hoy</h3>
         <p id="saldoMes">$0.00</p>
     </div>
 
@@ -84,10 +84,14 @@
         <input type="number" id="montoEgreso" placeholder="Monto">
 
         <select id="categoria">
-            <option>Combustible</option>
+            <option>Prestamos</option>
             <option>Comida</option>
+            <option>Arriendo</option>
+            <option>Base</option>
+            <option>Tarjeta</option>
+            <option>Servicios Basicos</option>
             <option>Mantenimiento</option>
-            <option>Otros</option>
+            <option>Otros:</option>
         </select>
 
         <button onclick="guardarEgreso()">Guardar</button>
