@@ -15,7 +15,7 @@ body {
     width: 95%;
     max-width: 500px;
     margin: auto;
-    padding: 20px 0 130px 0;
+    padding: 20px 0 140px 0;
 }
 
 /* HEADER */
@@ -146,7 +146,31 @@ body {
     font-size: 16px;
 }
 
-/* MOVIMIENTOS */
+/* TABS */
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #1e293b;
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* MOVIMIENTOS (LISTA) */
 .movimientos {
     background: #1e293b;
     border-radius: 18px;
@@ -206,6 +230,128 @@ body {
     color: #64748b;
     padding: 30px 0;
     font-size: 15px;
+}
+
+/* VISTA SEMANA */
+.vista-semana {
+    background: #1e293b;
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.semana-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.semana-nav button {
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.semana-nav span {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.tabla-semana {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.tabla-semana th {
+    background: #0f172a;
+    padding: 8px 4px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.tabla-semana td {
+    padding: 8px 4px;
+    text-align: center;
+    border-bottom: 1px solid #334155;
+}
+
+.tabla-semana .label {
+    text-align: left;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.tabla-semana .total-row {
+    background: #0f172a;
+    font-weight: bold;
+}
+
+.extras-semana {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 15px;
+}
+
+.extras-semana h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #94a3b8;
+}
+
+.extra-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.egresos-semana h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #94a3b8;
+}
+
+.egreso-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #334155;
+    font-size: 13px;
+}
+
+.egreso-item:last-child {
+    border-bottom: none;
+}
+
+.total-semana {
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #334155;
+    font-size: 16px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+/* BOTÓN PDF */
+.btn-pdf {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    background: #7c3aed;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* BOTONES FLOTANTES */
@@ -291,4 +437,12 @@ input, select {
 
 .oculto {
     display: none !important;
+}
+
+/* ===== ESTILOS PARA EL PDF ===== */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
 }
