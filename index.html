@@ -7,171 +7,112 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="container">
-
     <!-- HEADER -->
     <header class="header">
         <h1>🚕 Control Taxi</h1>
-        <p id="mesActual">Junio 2026</p>
+        <div class="mes-nav">
+            <button onclick="cambiarMes(-1)">‹</button>
+            <p id="mesActual">Junio 2026</p>
+            <button onclick="cambiarMes(1)">›</button>
+        </div>
     </header>
 
     <!-- TARJETA SALDO -->
     <section class="saldo-card">
         <div class="saldo-header">
-            <h2>Saldo Actual</h2>
+            <h2>Saldo del Mes</h2>
         </div>
-
-        <div class="saldo-valor" id="saldoMes">
-            $0.00
-        </div>
-
-        <p class="saldo-texto">
-            Disponible este mes
-        </p>
+        <div class="saldo-valor" id="saldoMes">$0.00</div>
+        <p class="saldo-texto">Ingresos − Egresos</p>
     </section>
 
     <!-- INGRESOS / EGRESOS -->
     <section class="resumen-grid">
-
         <div class="mini-card ingresos">
             <h3>📈 Ingresos</h3>
             <p id="ingresosMes">$0.00</p>
         </div>
-
         <div class="mini-card egresos">
             <h3>📉 Egresos</h3>
             <p id="egresosMes">$0.00</p>
         </div>
-
     </section>
 
-    <!-- MOVIMIENTOS RECIENTES -->
+    <!-- RESUMEN RÁPIDO -->
+    <section class="resumen-detalle">
+        <div class="detalle-item">
+            <span>Solo Taxi</span>
+            <strong id="soloTaxi">$0.00</strong>
+        </div>
+        <div class="detalle-item">
+            <span>Extras</span>
+            <strong id="totalExtras">$0.00</strong>
+        </div>
+    </section>
+
+    <!-- MOVIMIENTOS -->
     <section class="movimientos">
-
         <div class="titulo-seccion">
-            <h2>Movimientos Recientes</h2>
+            <h2>Movimientos del Mes</h2>
         </div>
-
         <div id="listaMovimientos">
-
-            <div class="movimiento">
-                <span>Taxi - Turno Día</span>
-                <span class="positivo">+$45.00</span>
-            </div>
-
-            <div class="movimiento">
-                <span>Combustible</span>
-                <span class="negativo">-$20.00</span>
-            </div>
-
-            <div class="movimiento">
-                <span>Extra - Gatito</span>
-                <span class="positivo">+$15.00</span>
-            </div>
-
+            <!-- Se llena con JavaScript -->
         </div>
-
     </section>
-
 </div>
 
 <!-- BOTONES FLOTANTES -->
-
 <div class="acciones">
-
-    <button class="btn-ingreso" onclick="mostrar('ingreso')">
-        ➕ Ingreso
-    </button>
-
-    <button class="btn-egreso" onclick="mostrar('egreso')">
-        ➖ Egreso
-    </button>
-
+    <button class="btn-ingreso" onclick="mostrar('ingreso')">➕ Ingreso</button>
+    <button class="btn-egreso" onclick="mostrar('egreso')">➖ Egreso</button>
 </div>
 
-<!-- FORMULARIO INGRESO -->
-
+<!-- MODAL INGRESO -->
 <div id="ingreso" class="modal oculto">
-
     <div class="modal-content">
-
         <h2>Nuevo Ingreso</h2>
-
         <input type="date" id="fechaIngreso">
-
-        <select id="turno">
-            <option value="dia">Turno Día</option>
-            <option value="noche">Turno Noche</option>
-        </select>
-
-        <input type="number"
-               id="montoIngreso"
-               placeholder="Monto">
-
         <select id="tipoIngreso" onchange="toggleExtra()">
             <option value="taxi">Taxi</option>
             <option value="extra">Extra</option>
         </select>
-
-        <select id="persona" class="oculto">
-            <option>Gatito</option>
-            <option>Luis Miguel</option>
-            <option>Linder</option>
+        <select id="turno">
+            <option value="dia">Turno Día</option>
+            <option value="noche">Turno Noche</option>
         </select>
-
-        <button onclick="guardarIngreso()">
-            Guardar
-        </button>
-
-        <button onclick="volver()">
-            Cancelar
-        </button>
-
+        <select id="persona" class="oculto">
+            <option value="Gatito">Gatito</option>
+            <option value="Luis Miguel">Luis Miguel</option>
+            <option value="Linder">Linder</option>
+        </select>
+        <input type="number" id="montoIngreso" placeholder="Monto" step="0.01" min="0">
+        <button onclick="guardarIngreso()">Guardar</button>
+        <button class="btn-cancelar" onclick="volver()">Cancelar</button>
     </div>
-
 </div>
 
-<!-- FORMULARIO EGRESO -->
-
+<!-- MODAL EGRESO -->
 <div id="egreso" class="modal oculto">
-
     <div class="modal-content">
-
         <h2>Nuevo Egreso</h2>
-
         <input type="date" id="fechaEgreso">
-
-        <input type="text"
-               id="descEgreso"
-               placeholder="Descripción">
-
-        <input type="number"
-               id="montoEgreso"
-               placeholder="Monto">
-
+        <input type="text" id="descEgreso" placeholder="Descripción">
         <select id="categoria">
-            <option>Prestamos</option>
-            <option>Comida</option>
-            <option>Mantenimiento</option>
-            <option>Tarjeta</option>
-            <option>Servicios Basicos</option>
-            <option>Otros</option>
+            <option value="Combustible">Combustible</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+            <option value="Prestamos">Préstamos</option>
+            <option value="Comida">Comida</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Servicios Basicos">Servicios Básicos</option>
+            <option value="Otros">Otros</option>
         </select>
-
-        <button onclick="guardarEgreso()">
-            Guardar
-        </button>
-
-        <button onclick="volver()">
-            Cancelar
-        </button>
-
+        <input type="number" id="montoEgreso" placeholder="Monto" step="0.01" min="0">
+        <button onclick="guardarEgreso()">Guardar</button>
+        <button class="btn-cancelar" onclick="volver()">Cancelar</button>
     </div>
-
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
