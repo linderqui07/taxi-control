@@ -1,5 +1,3 @@
-/* ===== GENERAL ===== */
-
 * {
     margin: 0;
     padding: 0;
@@ -17,80 +15,95 @@ body {
     width: 95%;
     max-width: 500px;
     margin: auto;
-    padding: 20px 0 120px 0;
+    padding: 20px 0 130px 0;
 }
 
-/* ===== HEADER ===== */
-
+/* HEADER */
 .header {
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .header h1 {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
 }
 
-.header p {
-    color: #94a3b8;
-    margin-top: 5px;
+.mes-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 12px;
 }
 
-/* ===== TARJETA PRINCIPAL ===== */
+.mes-nav button {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+}
 
+.mes-nav p {
+    color: #94a3b8;
+    font-size: 16px;
+    min-width: 140px;
+}
+
+/* SALDO */
 .saldo-card {
-    background: linear-gradient(
-        135deg,
-        #0f5132,
-        #14532d
-    );
-
+    background: linear-gradient(135deg, #0f5132, #14532d);
     border-radius: 18px;
     padding: 25px;
-    margin-bottom: 20px;
-
+    margin-bottom: 18px;
     box-shadow: 0 10px 25px rgba(0,0,0,.3);
+    text-align: center;
 }
 
 .saldo-header h2 {
-    font-size: 18px;
+    font-size: 16px;
     color: #d1fae5;
 }
 
 .saldo-valor {
-    font-size: 48px;
+    font-size: 42px;
     font-weight: bold;
     color: #22c55e;
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
 .saldo-texto {
     color: #bbf7d0;
-    margin-top: 10px;
+    margin-top: 8px;
+    font-size: 14px;
 }
 
-/* ===== TARJETAS PEQUEÑAS ===== */
-
+/* MINI CARDS */
 .resumen-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .mini-card {
     border-radius: 15px;
-    padding: 20px;
+    padding: 18px;
+    text-align: center;
 }
 
 .mini-card h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    margin-bottom: 8px;
 }
 
 .mini-card p {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
 }
 
@@ -99,42 +112,57 @@ body {
     border: 1px solid #2563eb;
 }
 
-.ingresos p {
-    color: #60a5fa;
-}
+.ingresos p { color: #60a5fa; }
 
 .egresos {
     background: #450a0a;
     border: 1px solid #ef4444;
 }
 
-.egresos p {
-    color: #f87171;
+.egresos p { color: #f87171; }
+
+/* DETALLE RÁPIDO */
+.resumen-detalle {
+    background: #1e293b;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
 }
 
-/* ===== MOVIMIENTOS ===== */
+.detalle-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 
+.detalle-item span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.detalle-item strong {
+    font-size: 16px;
+}
+
+/* MOVIMIENTOS */
 .movimientos {
     background: #1e293b;
     border-radius: 18px;
-    padding: 20px;
-}
-
-.titulo-seccion {
-    margin-bottom: 15px;
+    padding: 18px;
 }
 
 .titulo-seccion h2 {
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 15px;
 }
 
 .movimiento {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    padding: 14px 0;
-
+    padding: 13px 0;
     border-bottom: 1px solid #334155;
 }
 
@@ -142,133 +170,125 @@ body {
     border-bottom: none;
 }
 
-.positivo {
-    color: #22c55e;
-    font-weight: bold;
+.movimiento-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-.negativo {
+.movimiento-info .desc {
+    font-size: 15px;
+}
+
+.movimiento-info .fecha {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.positivo { color: #22c55e; font-weight: bold; }
+.negativo { color: #ef4444; font-weight: bold; }
+
+.btn-eliminar {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.btn-eliminar:hover {
     color: #ef4444;
-    font-weight: bold;
 }
 
-/* ===== BOTONES FLOTANTES ===== */
+.vacio {
+    text-align: center;
+    color: #64748b;
+    padding: 30px 0;
+    font-size: 15px;
+}
 
+/* BOTONES FLOTANTES */
 .acciones {
     position: fixed;
-
     bottom: 20px;
     left: 0;
     right: 0;
-
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
+    z-index: 100;
 }
 
-.btn-ingreso,
-.btn-egreso {
+.btn-ingreso, .btn-egreso {
     border: none;
     border-radius: 50px;
-
-    padding: 15px 25px;
-
-    font-size: 16px;
+    padding: 14px 22px;
+    font-size: 15px;
     font-weight: bold;
-
     color: white;
-
     cursor: pointer;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,.35);
 }
 
-.btn-ingreso {
-    background: #22c55e;
-}
+.btn-ingreso { background: #22c55e; }
+.btn-egreso { background: #ef4444; }
 
-.btn-egreso {
-    background: #ef4444;
-}
-
-/* ===== MODALES ===== */
-
+/* MODALES */
 .modal {
     position: fixed;
-
     top: 0;
     left: 0;
-
     width: 100%;
     height: 100%;
-
     background: rgba(0,0,0,.8);
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     z-index: 1000;
 }
 
 .modal-content {
     width: 92%;
-    max-width: 450px;
-
+    max-width: 420px;
     background: #1e293b;
-
     border-radius: 18px;
-
     padding: 25px;
 }
 
 .modal-content h2 {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    text-align: center;
 }
 
-/* ===== FORMULARIOS ===== */
-
-input,
-select {
+input, select {
     width: 100%;
-
-    padding: 14px;
-
-    margin-top: 10px;
-    margin-bottom: 10px;
-
+    padding: 13px;
+    margin-bottom: 12px;
     background: #0f172a;
-
     border: 1px solid #334155;
-
     border-radius: 10px;
-
     color: white;
-
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .modal-content button {
     width: 100%;
-
-    margin-top: 10px;
-
-    padding: 14px;
-
+    margin-top: 8px;
+    padding: 13px;
     border: none;
     border-radius: 10px;
-
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
-
     cursor: pointer;
-
     background: #2563eb;
     color: white;
 }
 
-/* ===== UTILIDADES ===== */
+.btn-cancelar {
+    background: #334155 !important;
+}
 
 .oculto {
-    display: none;
+    display: none !important;
 }
