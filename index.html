@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Taxi</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Librería para exportar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -51,15 +53,35 @@
         </div>
     </section>
 
-    <!-- MOVIMIENTOS -->
-    <section class="movimientos">
+    <!-- PESTAÑAS -->
+    <div class="tabs">
+        <button class="tab active" onclick="cambiarVista('lista')" id="tabLista">Lista</button>
+        <button class="tab" onclick="cambiarVista('semana')" id="tabSemana">Semana</button>
+    </div>
+
+    <!-- VISTA LISTA -->
+    <section class="movimientos" id="vistaLista">
         <div class="titulo-seccion">
             <h2>Movimientos del Mes</h2>
         </div>
-        <div id="listaMovimientos">
-            <!-- Se llena con JavaScript -->
+        <div id="listaMovimientos"></div>
+    </section>
+
+    <!-- VISTA SEMANA -->
+    <section class="vista-semana oculto" id="vistaSemana">
+        <div class="semana-nav">
+            <button onclick="cambiarSemana(-1)">‹ Semana</button>
+            <span id="rangoSemana">Semana 1</span>
+            <button onclick="cambiarSemana(1)">Semana ›</button>
+        </div>
+
+        <div id="contenidoSemana">
+            <!-- Se genera con JS -->
         </div>
     </section>
+
+    <!-- BOTÓN EXPORTAR PDF -->
+    <button class="btn-pdf" onclick="exportarPDF()">📄 Exportar PDF</button>
 </div>
 
 <!-- BOTONES FLOTANTES -->
