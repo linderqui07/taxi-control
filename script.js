@@ -313,18 +313,7 @@ function exportarPDF() {
   const mes = mesActual.getMonth();
   const nombreMes = nombres[mes];
 
-  const elemento = document.createElement("div");
-  elemento.style.padding = "20px";
-  elemento.style.fontFamily = "Arial, sans-serif";
-  elemento.style.color = "#000";
-  elemento.style.background = "#fff";
-
-  let html = `
-    <h1 style="text-align:center; margin-bottom:5px;">🚕 Control Taxi</h1>
-    <h2 style="text-align:center; color:#555; margin-top:0;">${nombreMes} ${anio}</h2>
-    <hr>
-  `;
-
+  // Filtrar datos del mes
   const delMes = movimientos.filter(m => {
     const f = new Date(m.fecha + "T12:00:00");
     return f.getFullYear() === anio && f.getMonth() === mes;
@@ -336,21 +325,53 @@ function exportarPDF() {
       ingresos += m.monto;
       if (m.esExtra) extras += m.monto;
       else soloTaxi += m.monto;
-    } else egresos += m.monto;
+    } else {
+      egresos += m.monto;
+    }
   });
 
-  html += `
-    <div style="display:flex; justify-content:space-around; margin:20px 0; text-align:center;">
-      <div><strong>Ingresos</strong><br>$${ingresos.toFixed(2)}</div>
-      <div><strong>Egresos</strong><br>$${egresos.toFixed(2)}</div>
-      <div><strong>Saldo</strong><br>$${(ingresos - egresos).toFixed(2)}</div>
-    </div>
-    <div style="text-align:center; margin-bottom:20px; font-size:14px;">
-      Solo Taxi: $${soloTaxi.toFixed(2)} &nbsp;|&nbsp; Extras: $${extras.toFixed(2)}
-    </div>
-    <hr>
+  // Crear elemento temporal
+  const elemento = document.createElement("div");
+  elemento.id = "pdf-contenido";
+  elemento.style.cssText = `
+    position: fixed;
+    left: -9999px;
+    top: 0;
+    width: 800px;
+    padding: 30px;
+    background: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
   `;
 
+  let html = `
+    <div style="text-align:center; margin-bottom:20px;">
+      <h1 style="margin:0; font-size:24px;">🚕 Control Taxi</h1>
+      <h2 style="margin:8px 0 0 0; color:#555; font-size:18px;">${nombreMes} ${anio}</h2>
+    </div>
+
+    <div style="display:flex; justify-content:space-around; margin:25px 0; text-align:center; background:#f5f5f5; padding:15px; border-radius:8px;">
+      <div>
+        <div style="font-size:12px; color:#666;">Ingresos</div>
+        <div style="font-size:18px; font-weight:bold; color:#16a34a;">$${ingresos.toFixed(2)}</div>
+      </div>
+      <div>
+        <div style="font-size:12px; color:#666;">Egresos</div>
+        <div style="font-size:18px; font-weight:bold; color:#dc2626;">$${egresos.toFixed(2)}</div>
+      </div>
+      <div>
+        <div style="font-size:12px; color:#666;">Saldo</div>
+        <div style="font-size:18px; font-weight:bold;">$${(ingresos - egresos).toFixed(2)}</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:25px; font-size:13px; color:#555;">
+      Solo Taxi: <strong>$${soloTaxi.toFixed(2)}</strong> &nbsp;&nbsp;|&nbsp;&nbsp; Extras: <strong>$${extras.toFixed(2)}</strong>
+    </div>
+  `;
+
+  // ===== INGRESOS TAXI =====
   const diasDelMes = {};
   delMes.forEach(m => {
     if (m.tipo === "ingreso" && !m.esExtra) {
@@ -363,94 +384,119 @@ function exportarPDF() {
   const fechasOrdenadas = Object.keys(diasDelMes).sort();
 
   if (fechasOrdenadas.length > 0) {
-    html += `<h3>Ingresos Taxi</h3>
-    <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:20px;">
-      <thead>
-        <tr style="background:#eee;">
-          <th style="border:1px solid #ccc; padding:6px;">Fecha</th>
-          <th style="border:1px solid #ccc; padding:6px;">Día</th>
-          <th style="border:1px solid #ccc; padding:6px;">Noche</th>
-          <th style="border:1px solid #ccc; padding:6px;">Total</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    html += `
+      <h3 style="margin:20px 0 10px 0; font-size:16px; border-bottom:2px solid #333; padding-bottom:5px;">Ingresos Taxi</h3>
+      <table style="width:100%; border-collapse:collapse; font-size:13px; margin-bottom:25px;">
+        <thead>
+          <tr style="background:#e5e5e5;">
+            <th style="border:1px solid #999; padding:8px; text-align:left;">Fecha</th>
+            <th style="border:1px solid #999; padding:8px; text-align:right;">Día</th>
+            <th style="border:1px solid #999; padding:8px; text-align:right;">Noche</th>
+            <th style="border:1px solid #999; padding:8px; text-align:right;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
 
     fechasOrdenadas.forEach(f => {
       const d = diasDelMes[f];
       const total = d.dia + d.noche;
       html += `
         <tr>
-          <td style="border:1px solid #ccc; padding:6px;">${formatearFecha(f)}</td>
-          <td style="border:1px solid #ccc; padding:6px; text-align:right;">${d.dia.toFixed(2)}</td>
-          <td style="border:1px solid #ccc; padding:6px; text-align:right;">${d.noche.toFixed(2)}</td>
-          <td style="border:1px solid #ccc; padding:6px; text-align:right;"><strong>${total.toFixed(2)}</strong></td>
+          <td style="border:1px solid #ccc; padding:7px;">${formatearFecha(f)}</td>
+          <td style="border:1px solid #ccc; padding:7px; text-align:right;">${d.dia.toFixed(2)}</td>
+          <td style="border:1px solid #ccc; padding:7px; text-align:right;">${d.noche.toFixed(2)}</td>
+          <td style="border:1px solid #ccc; padding:7px; text-align:right; font-weight:bold;">${total.toFixed(2)}</td>
         </tr>`;
     });
+
     html += `</tbody></table>`;
   }
 
+  // ===== EXTRAS =====
   const extrasLista = delMes.filter(m => m.tipo === "ingreso" && m.esExtra);
   if (extrasLista.length > 0) {
-    html += `<h3>Ingresos Extras</h3>
-    <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:20px;">
-      <thead>
-        <tr style="background:#eee;">
-          <th style="border:1px solid #ccc; padding:6px;">Fecha</th>
-          <th style="border:1px solid #ccc; padding:6px;">Persona</th>
-          <th style="border:1px solid #ccc; padding:6px;">Monto</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    html += `
+      <h3 style="margin:20px 0 10px 0; font-size:16px; border-bottom:2px solid #333; padding-bottom:5px;">Ingresos Extras</h3>
+      <table style="width:100%; border-collapse:collapse; font-size:13px; margin-bottom:25px;">
+        <thead>
+          <tr style="background:#e5e5e5;">
+            <th style="border:1px solid #999; padding:8px; text-align:left;">Fecha</th>
+            <th style="border:1px solid #999; padding:8px; text-align:left;">Persona</th>
+            <th style="border:1px solid #999; padding:8px; text-align:right;">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
     extrasLista.forEach(e => {
       html += `
         <tr>
-          <td style="border:1px solid #ccc; padding:6px;">${formatearFecha(e.fecha)}</td>
-          <td style="border:1px solid #ccc; padding:6px;">${e.persona}</td>
-          <td style="border:1px solid #ccc; padding:6px; text-align:right;">${e.monto.toFixed(2)}</td>
+          <td style="border:1px solid #ccc; padding:7px;">${formatearFecha(e.fecha)}</td>
+          <td style="border:1px solid #ccc; padding:7px;">${e.persona}</td>
+          <td style="border:1px solid #ccc; padding:7px; text-align:right;">${e.monto.toFixed(2)}</td>
         </tr>`;
     });
     html += `</tbody></table>`;
   }
 
+  // ===== EGRESOS =====
   const egresosLista = delMes.filter(m => m.tipo === "egreso");
   if (egresosLista.length > 0) {
-    html += `<h3>Egresos</h3>
-    <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:20px;">
-      <thead>
-        <tr style="background:#eee;">
-          <th style="border:1px solid #ccc; padding:6px;">Fecha</th>
-          <th style="border:1px solid #ccc; padding:6px;">Descripción</th>
-          <th style="border:1px solid #ccc; padding:6px;">Categoría</th>
-          <th style="border:1px solid #ccc; padding:6px;">Monto</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    html += `
+      <h3 style="margin:20px 0 10px 0; font-size:16px; border-bottom:2px solid #333; padding-bottom:5px;">Egresos</h3>
+      <table style="width:100%; border-collapse:collapse; font-size:13px; margin-bottom:25px;">
+        <thead>
+          <tr style="background:#e5e5e5;">
+            <th style="border:1px solid #999; padding:8px; text-align:left;">Fecha</th>
+            <th style="border:1px solid #999; padding:8px; text-align:left;">Descripción</th>
+            <th style="border:1px solid #999; padding:8px; text-align:left;">Categoría</th>
+            <th style="border:1px solid #999; padding:8px; text-align:right;">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
     egresosLista.forEach(e => {
       html += `
         <tr>
-          <td style="border:1px solid #ccc; padding:6px;">${formatearFecha(e.fecha)}</td>
-          <td style="border:1px solid #ccc; padding:6px;">${e.descripcion}</td>
-          <td style="border:1px solid #ccc; padding:6px;">${e.categoria}</td>
-          <td style="border:1px solid #ccc; padding:6px; text-align:right;">${e.monto.toFixed(2)}</td>
+          <td style="border:1px solid #ccc; padding:7px;">${formatearFecha(e.fecha)}</td>
+          <td style="border:1px solid #ccc; padding:7px;">${e.descripcion}</td>
+          <td style="border:1px solid #ccc; padding:7px;">${e.categoria}</td>
+          <td style="border:1px solid #ccc; padding:7px; text-align:right;">${e.monto.toFixed(2)}</td>
         </tr>`;
     });
     html += `</tbody></table>`;
+  }
+
+  if (delMes.length === 0) {
+    html += `<p style="text-align:center; color:#888; margin-top:40px;">No hay movimientos registrados este mes.</p>`;
   }
 
   elemento.innerHTML = html;
   document.body.appendChild(elemento);
 
+  // Generar PDF
   const opt = {
-    margin: 10,
-    filename: `Control_Taxi_${nombreMes}_${anio}.pdf`,
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+    margin:       [10, 10, 10, 10],
+    filename:     `Control_Taxi_${nombreMes}_${anio}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { 
+      scale: 2,
+      useCORS: true,
+      logging: false
+    },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(elemento).save().then(() => {
-    document.body.removeChild(elemento);
-  });
+  // Pequeña espera para que el DOM se pinte
+  setTimeout(() => {
+    html2pdf().set(opt).from(elemento).save().then(() => {
+      document.body.removeChild(elemento);
+    }).catch(err => {
+      console.error("Error al generar PDF:", err);
+      document.body.removeChild(elemento);
+      alert("Error al generar el PDF. Revisa la consola.");
+    });
+  }, 300);
 }
 
 // ======================
